@@ -1,0 +1,8 @@
+#https://codefresh.io/docker-tutorial/not-ignore-dockerignore-2/
+.git/
+.idea/
+
+# uncomment if used directly as volume (without lsyncd)
+mysql/data
+mysql/dumps
+node/node_modules

@@ -1,0 +1,1 @@
+docker exec -it wordpress_php wp theme activate empty-theme --allow-root

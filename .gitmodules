@@ -1,0 +1,3 @@
+#[submodule "php/app/wp-content/themes/some-sub-repo"]
+#	path = php/app/wp-content/themes/some-sub-repo
+#	url = git@github.com:Your-Account-Name/some-sub-repo.git

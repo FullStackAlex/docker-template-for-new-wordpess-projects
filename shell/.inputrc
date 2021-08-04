@@ -1,0 +1,74 @@
+                                   #!/bin/bash
+
+#reload .inputrc (^T)
+"\024": re-read-init-file
+
+# when pressing alt/option + p execute control + y (yank readline copyboard) and pipe it into pbocopy
+# and then return the printed command line (\n)
+# this allows to copy and paste readline clipboard into any other app by cmd+v
+#'\C-y' without wrapping quotes will pbcopy not the yanked clipboard but the result of the executed command (might be useful as well in some cases though)
+"\π":"echo -n '\C-y' | pbcopy\n"
+
+
+# Control + b : "kill" the whole command line and "yank" it into readline's copyboard then pipe it into systems clipboard
+# and then print it back in the command line (C-y) without executing
+#
+# Couldn't find a way to avoid printing "echo -n '\C-y' | pbcopy" on the current line and then outputing the clipboard on a new line
+# It seems as there is no way in Readline to execute a command ( pbcopy )
+# without entering the current command line as it is possible within the key bindings in the .tmux.conf file
+# Though it does the job, even not that elegant
+"\002":"\C-e\C-u  echo -n '\C-y' | pbcopy\n\C-y"
+
+
+#"\C-h":
+"\010": backward-kill-line
+
+#Mac's Terminal app only:
+"\033[1;2D": beginning-of-line # Shift + cursor left
+"\033[1;2C": end-of-line       # Shift + cursor right
+#PhpStorm Terminal:
+"\033[2D": beginning-of-line # Shift + cursor left
+"\033[2C": end-of-line       # Shift + cursor right
+
+
+#not working in phpstorm's terminal (makes the cursor jump on simple arrow press)
+#but works in Mac's Terminal app:
+#"\033[D": beginning-of-line  # Shift + Option + cursor left
+#"\033[C": end-of-line  # Shift + Option + cursor right
+
+# bind fn+Shift + Left/Right in Alacritty (Terminal expects different ascii code as key input) to Ctrl+Shift+Left/Right (selecting windows in Tmux)
+#"\033[1;2F": "\C-ß" #right
+#"\033[1;2H": "\C-?" #left
+
+#fn+shift+left/right in terminal.app:
+#"\033[F": end-of-line       #right
+#"\033[H": beginning-of-line #left
+
+set bell-style visible
+
+
+#enable Vi-mode
+#https://vim.fandom.com/wiki/Use_vi_shortcuts_in_terminal
+#set editing-mode vi
+#set keymap vi-command
+
+#or enable emacs
+#set editing-mode emacs
+#set -o emacs
+
+#readline commands cheat sheet
+#https://readline.kablamo.org/emacs.html
+
+#lot of key-combinations do not send any key codes or the same key code on different key combinations
+#like control+delete or option + delete or just delete sends the same "^?" in the terminal
+#you have to configure the terminal emulator to send the desired escape sequences when particular key combinations are pressed
+
+#more info on the backspace key and delete word option+backspace combination
+#https://www.emacswiki.org/emacs/BackspaceKey
+#https://www.gnu.org/software/emacs/manual/html_node/emacs/Modifier-Keys.html#Modifier-Keys
+#https://www.gnu.org/software/bash/manual/html_node/Command-Line-Editing.html#Command-Line-Editing
+#https://www.gnu.org/software/coreutils/manual/html_node/stty-invocation.html
+#http://web.archive.org/web/20120621035133/http://www.ibb.net/~anne/keyboard/keyboard.html
+#https://unix.stackexchange.com/questions/264791/ctrl-backspace-and-ctrl-delete-in-bash
+#https://www.computerhope.com/unix/bash/bind.htm
+#https://stackoverflow.com/questions/4200800/in-bash-how-do-i-bind-a-function-key-to-a-command

@@ -1,0 +1,69 @@
+FROM php:8-fpm-buster
+
+
+RUN apt update
+RUN apt upgrade -y
+
+RUN apt-get install -y man
+RUN apt-get install -y vim
+RUN apt-get install -y less
+RUN apt-get install -y lsyncd
+RUN apt-get install -y memcached
+RUN apt-get install -y wget
+RUN apt-get install -y ssh
+RUN apt-get install -y unzip
+RUN apt-get install -y pv
+RUN apt-get install -y expect
+
+RUN apt-get install -y g++
+RUN apt-get install -y zlib1g-dev
+RUN apt-get install -y libbz2-dev
+RUN apt-get install -y libc-client-dev
+RUN apt-get install -y libcurl4-gnutls-dev
+RUN apt-get install -y libedit-dev
+RUN apt-get install -y libfreetype6-dev
+RUN apt-get install -y libicu-dev
+RUN apt-get install -y libkrb5-dev
+RUN apt-get install -y libldap2-dev
+RUN apt-get install -y libldb-dev
+#causing error on arm mac
+RUN apt-get install -y libmagickwand-dev
+RUN apt-get install -y libmcrypt-dev
+RUN apt-get install -y libmemcached-dev
+RUN apt-get install -y libpng-dev
+RUN apt-get install -y libpq-dev
+RUN apt-get install -y libsqlite3-dev
+RUN apt-get install -y libssl-dev
+RUN apt-get install -y libreadline-dev
+RUN apt-get install -y libxslt1-dev
+RUN apt-get install -y libzip-dev
+RUN apt-get install -y git
+RUN pecl install xdebug
+RUN docker-php-ext-install posix
+RUN docker-php-ext-install bz2
+RUN docker-php-ext-install mysqli
+RUN docker-php-ext-install pdo
+RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install opcache
+RUN docker-php-ext-install xml
+#RUN docker-php-ext-install json
+RUN docker-php-ext-install curl
+RUN docker-php-ext-install zip
+RUN docker-php-ext-install gettext
+RUN docker-php-ext-install exif
+RUN docker-php-ext-install gd
+
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    apt-get update && apt-get install -y libzip-dev
+RUN wget https://get.symfony.com/cli/installer -O - | bash
+RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y locales  --fix-missing
+
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    dpkg-reconfigure --frontend=noninteractive locales && \
+    update-locale LANG=en_US.UTF-8
+
+
+CMD tail -f /dev/null

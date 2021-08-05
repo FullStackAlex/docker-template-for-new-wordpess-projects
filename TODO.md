@@ -1,4 +1,6 @@
 - ### get the php mysql/mariadb-client to work with caching_sha2_password (why the fuck does the mysql-client not support this out of the box? php8 seems to support caching_sha2_password)  
+  - https://dev.mysql.com/doc/refman/8.0/en/caching-sha2-pluggable-authentication.html
+  - https://jonathandesrosiers.com/2019/02/trouble-connecting-to-database-when-using-mysql-8-x/
 - ### finish node setup
 - ### add php8-basis as a separate Repository
 - ### locale is messed up 
